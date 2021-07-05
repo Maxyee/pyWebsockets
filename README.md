@@ -2,9 +2,9 @@
 
 ## Features
 
-- User can add repository name and Link
+- User can add repository link
 - User can delete all repository link
-- user can delete single respository from the list/box
+- User can delete single respository from the list/box
 - User can close the app
 
 ## Screenshot of project
@@ -99,11 +99,39 @@ app.on("ready", () => {
 - make folder called `templates` into that folder lets make a file `MainMenu.js` and put the code below
 
 ```js
-module.exports = {
-  mainMenuTemplate: [
-    {
-      label: "File",
-    },
-  ],
-};
+const mainMenuTemplate = [
+  {
+    label: "File",
+    submenu: [
+      {
+        label: "Add Repository",
+        click() {
+          createAddWindow();
+        },
+      },
+      {
+        label: "Clear Repository",
+      },
+      {
+        label: "Quit",
+        accelerator: process.platform == "darwin" ? "Command+Q" : "Ctrl+Q",
+        click() {
+          app.quit();
+        },
+      },
+    ],
+  },
+];
+
+module.exports = { mainMenuTemplate };
 ```
+
+- finally add this module to the `main.js file`
+
+```js
+const { mainMenuTemplate } = require("./templates/MainMenu");
+```
+
+3. ***
+
+- Lets create a `createAddWindow` function task

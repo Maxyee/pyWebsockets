@@ -3,7 +3,7 @@ const url = require('url');
 const path = require('path');
 const { Menu } = require('electron');
 const { app, BrowserWindow } = electron;
-const {mainMenuTemplate} = require('./templates/MainMenu');
+const { mainMenuTemplate } = require('./templates/MainMenu');
 
 let mainWindow;
 
@@ -18,9 +18,13 @@ app.on('ready', () => {
         })
     );
 
+    // Quit app when closed
+    mainWindow.on('closed', function(){
+        app.quit();
+    })
+
     // Build the menu from the template
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     // Insert Menu
     Menu.setApplicationMenu(mainMenu);
 });
-
