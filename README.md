@@ -13,6 +13,8 @@
 
 ## Work Step by Step
 
+1. ***
+
 - At first, we need to make a package.json file . use this command `npm init`
 - Install necessary packages for the work
 
@@ -49,7 +51,7 @@ app.on("ready", () => {
 ```
 
 - Now load a html file to the mainWindow
-- Make a directory called `templates` and make a file `mainWindow.html` into that directory
+- Make a directory called `static` and make a file `mainWindow.html` into that directory
 
 ```html
 <!DOCTYPE html>
@@ -80,7 +82,7 @@ app.on("ready", () => {
   // Load the mainWindow.html file
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "./templates/mainWindow.html"),
+      pathname: path.join(__dirname, "./static/mainWindow.html"),
       protocol: "file",
       slashes: true,
     })
@@ -89,3 +91,19 @@ app.on("ready", () => {
 ```
 
 - try to run the `npm start` command we will get main window open
+
+2. ***
+
+- Lets make a custom menu bar
+- at first we need to separate our services to another folder and then `exports` those into the `main.js` file
+- make folder called `templates` into that folder lets make a file `MainMenu.js` and put the code below
+
+```js
+module.exports = {
+  mainMenuTemplate: [
+    {
+      label: "File",
+    },
+  ],
+};
+```

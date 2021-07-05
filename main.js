@@ -1,8 +1,9 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
-
+const { Menu } = require('electron');
 const { app, BrowserWindow } = electron;
+const {mainMenuTemplate} = require('./templates/MainMenu');
 
 let mainWindow;
 
@@ -11,9 +12,15 @@ app.on('ready', () => {
     // Load Html file to the window
     mainWindow.loadURL(
         url.format({
-          pathname: path.join(__dirname, "./templates/mainWindow.html"),
+          pathname: path.join(__dirname, "./static/mainWindow.html"),
           protocol: "file",
           slashes: true,
         })
     );
+
+    // Build the menu from the template
+    const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+    // Insert Menu
+    Menu.setApplicationMenu(mainMenu);
 });
+
