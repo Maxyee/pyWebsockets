@@ -274,3 +274,18 @@ ipcMain.on("repo:add", function (e, repo) {
 ```
 
 7. ***
+
+- lets design our application with `materialize` css
+
+- at first add the cdn from materialize website to `static/addWindow.html` and `static/mainWindow.html`
+
+```html
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+/>
+```
+
+- Now lets start to design our project
+
+- Check the `commit` of `` the project and we can get the Idea how to make this project interactive to user !

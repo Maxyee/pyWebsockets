@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
     <title>Repository Box</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-    <h1>Repository Box</h1>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="" class="brand-logo center">
+                Repository Box
+            </a>
+        </div>
+    </nav>
     <ul></ul>
 
     <script>
@@ -14,7 +21,9 @@
 
         // Add Repo
         ipcRenderer.on('repo:add', function(e, repo){
+            ul.className = 'collection';
             const li = document.createElement('li');
+            li.className = 'collection-item';
             const repoText = document.createTextNode(repo);
             li.appendChild(repoText);
             ul.appendChild(li);
@@ -23,6 +32,7 @@
         // Clear Repo
         ipcRenderer.on('repo:clear', function(){
             ul.innerHTML = '';
+            ul.className = '';
         })
 
         // Remove Repo With double click
@@ -30,6 +40,9 @@
 
         function removeRepo(e){
             e.target.remove();
+            if(ul.children.length == 0){
+                ul.className = '';
+            }
         }
     </script>
 </body>
