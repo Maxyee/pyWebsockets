@@ -7,9 +7,23 @@
 - User can delete single respository from the list/box
 - User can close the app
 
+## How to start the project
+
+- Download or Clone the Project
+
+- then run two command
+
+```bash
+
+npm install
+
+npm start
+
+```
+
 ## Screenshot of project
 
-- image link
+![alt text](https://github.com/Maxyee/respository-box/blob/master/screenshots/respository-box.png)
 
 ## Work Step by Step
 
