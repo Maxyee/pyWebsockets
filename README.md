@@ -23,7 +23,7 @@ npm start
 
 ## Screenshot of project
 
-![alt text](https://github.com/Maxyee/respository-box/blob/master/screenshots/respository-box.png)
+![alt text](https://github.com/Maxyee/respository-box/blob/main/screenshots/repository-box.png)
 
 ## Work Step by Step
 
