@@ -234,3 +234,43 @@ ipcMain.on("repo:add", function (e, repo) {
   });
 </script>
 ```
+
+6. ***
+
+- lets clear the Repo from the box.
+- for doing this we have to create an event from `main.js` file
+
+```js
+  {
+      label: 'Clear Repository',
+      click(){
+          mainWindow.webContents.send('repo:clear');
+      }
+  },
+
+```
+
+- now we have to catch that event to our `static/mainWindow.html` file
+
+```html
+<script>
+  // Clear Repo
+  ipcRenderer.on("repo:clear", function () {
+    ul.innerHTML = "";
+  });
+</script>
+```
+
+- if we want to remove Repo but double click on it
+
+```html
+<script>
+  ul.addEventListener("dblclick", removeRepo);
+
+  function removeRepo(e) {
+    e.target.remove();
+  }
+</script>
+```
+
+7. ***

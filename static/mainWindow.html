@@ -12,12 +12,25 @@
         const { ipcRenderer } = electron;
         const ul = document.querySelector('ul');
 
+        // Add Repo
         ipcRenderer.on('repo:add', function(e, repo){
             const li = document.createElement('li');
             const repoText = document.createTextNode(repo);
             li.appendChild(repoText);
             ul.appendChild(li);
         })
+
+        // Clear Repo
+        ipcRenderer.on('repo:clear', function(){
+            ul.innerHTML = '';
+        })
+
+        // Remove Repo With double click
+        ul.addEventListener('dblclick', removeRepo);
+
+        function removeRepo(e){
+            e.target.remove();
+        }
     </script>
 </body>
 </html>

@@ -72,7 +72,10 @@ const mainMenuTemplate = [
                 }
             },
             {
-                label: 'Clear Repository'
+                label: 'Clear Repository',
+                click(){
+                    mainWindow.webContents.send('repo:clear');
+                }
             },
             {
                 label: 'Quit',
