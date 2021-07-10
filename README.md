@@ -95,8 +95,6 @@ app.on("ready", () => {
 2. ***
 
 - Lets make a custom menu bar
-- at first we need to separate our services to another folder and then `exports` those into the `main.js` file
-- make folder called `templates` into that folder lets make a file `MainMenu.js` and put the code below
 
 ```js
 const mainMenuTemplate = [
@@ -122,16 +120,117 @@ const mainMenuTemplate = [
     ],
   },
 ];
-
-module.exports = { mainMenuTemplate };
-```
-
-- finally add this module to the `main.js file`
-
-```js
-const { mainMenuTemplate } = require("./templates/MainMenu");
 ```
 
 3. ***
 
 - Lets create a `createAddWindow` function task
+
+```js
+let addWindow;
+
+function createAddWindow() {
+  addWindow = new BrowserWindow({
+    width: 300,
+    height: 200,
+    title: "Add Repository To The Box",
+
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+  // Load Html file to the window
+  addWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, "./static/addWindow.html"),
+      protocol: "file",
+      slashes: true,
+    })
+  );
+  //Garbage Collection handle
+  addWindow.on("close", function () {
+    addWindow = null;
+  });
+}
+```
+
+4. ***
+
+- handleing OS level developer tools and sections
+
+```js
+if (process.platform == "darwin") {
+  mainMenuTemplate.unshift({});
+}
+
+// Add developer tools item if not in prod
+if (process.env.NODE_ENV !== "production") {
+  mainMenuTemplate.push({
+    label: "Developer Tools",
+    submenu: [
+      {
+        label: "Toggle DevTools",
+        accelerator: process.platform == "darwin" ? "Command+I" : "Ctrl+I",
+        click(item, focusedWindow) {
+          focusedWindow.toggleDevTools();
+        },
+      },
+      {
+        role: "reload",
+      },
+    ],
+  });
+}
+```
+
+5. ***
+
+- Lets pass our repo link from `addWindow` to `mainWindow` using `vanillajs` and `ipcrenderer`
+
+- at first we have to open the `static/addWindow.html` and add below code there
+
+```html
+<script>
+  const electron = require("electron");
+  const { ipcRenderer } = electron;
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", submitForm);
+
+  function submitForm(e) {
+    e.preventDefault();
+    const repo = document.querySelector("#repo").value;
+    ipcRenderer.send("repo:add", repo);
+  }
+</script>
+```
+
+- after that we have to catch that submitted data using `ipcrenderer`
+
+```js
+ipcMain.on("repo:add", function (e, repo) {
+  console.log(repo);
+  mainWindow.webContents.send("repo:add", repo);
+  addWindow.close();
+});
+```
+
+- lets show that `ipcrenderer` data to our `static/mainWindow.html` file
+
+```html
+<ul></ul>
+
+<script>
+  const electron = require("electron");
+  const { ipcRenderer } = electron;
+  const ul = document.querySelector("ul");
+
+  ipcRenderer.on("repo:add", function (e, repo) {
+    const li = document.createElement("li");
+    const repoText = document.createTextNode(repo);
+    li.appendChild(repoText);
+    ul.appendChild(li);
+  });
+</script>
+```

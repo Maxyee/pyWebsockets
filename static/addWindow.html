@@ -13,5 +13,19 @@
         </div>
         <button type="submit">add Repository</button>
     </form>
+
+    <script>
+        const electron = require('electron');
+        const { ipcRenderer } = electron;
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', submitForm);
+
+        function submitForm(e){
+            e.preventDefault();
+            const repo = document.querySelector('#repo').value;
+            ipcRenderer.send('repo:add', repo);
+        }
+    </script>
 </body>
 </html>

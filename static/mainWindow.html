@@ -5,5 +5,19 @@
 </head>
 <body>
     <h1>Repository Box</h1>
+    <ul></ul>
+
+    <script>
+        const electron = require('electron');
+        const { ipcRenderer } = electron;
+        const ul = document.querySelector('ul');
+
+        ipcRenderer.on('repo:add', function(e, repo){
+            const li = document.createElement('li');
+            const repoText = document.createTextNode(repo);
+            li.appendChild(repoText);
+            ul.appendChild(li);
+        })
+    </script>
 </body>
 </html>
