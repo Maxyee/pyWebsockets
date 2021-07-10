@@ -288,4 +288,17 @@ ipcMain.on("repo:add", function (e, repo) {
 
 - Now lets start to design our project
 
-- Check the `commit` of `` the project and we can get the Idea how to make this project interactive to user !
+- Check the `commit` of `e10680ba7bc0ccdb01eaf38d98fb708632a1f2b8` the project and we can get the Idea how to make this project interactive to user !
+
+8. ***
+
+- Finally we have to install electron packager for making the OS required files for running this application
+
+```bash
+
+npm install --save-dev electron-packager
+
+```
+
+- follow this link for doing this task
+  https://www.christianengvall.se/electron-packager-tutorial/
